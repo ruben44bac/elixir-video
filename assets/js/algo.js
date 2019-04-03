@@ -17,7 +17,6 @@ let Player = {
                 "onStateChange": (event => this.onPlayerStateChange(event))
             }
         })
-        console.log(this.player)
     },
     onPlayerStateChange(event) { },
     getCurrentTime() { return Math.floor(this.player.getCurrentTime() * 1000) },

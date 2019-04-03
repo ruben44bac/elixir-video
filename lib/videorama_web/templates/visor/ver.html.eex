@@ -13,14 +13,14 @@
 
             
             <p class="video-comentario-titulo">Comentarios</p>
-            <div id="msg_container"></div>
+            <div id="msg-container"></div>
             <div class="video-comentario">
                 <div class="row">
                     <div class="input-field col s12">
-                    <textarea id="textarea1" class="materialize-textarea"></textarea>
-                    <label for="textarea1">Textarea</label>
+                    <textarea id="msg-input" class="materialize-textarea"></textarea>
+                    <label for="msg-input">Textarea</label>
                     </div>
-                    <button class="waves-effect waves-light btn">Enviar comentario</button>
+                    <button id="msg-submit" class="waves-effect waves-light btn">Enviar comentario</button>
                 </div>
             </div>
 

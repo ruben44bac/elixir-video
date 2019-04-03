@@ -2,7 +2,7 @@ defmodule VideoramaWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "room:*", VideoramaWeb.RoomChannel
+  channel "videos:*", VideoramaWeb.VideoChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
