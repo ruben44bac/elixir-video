@@ -1,0 +1,3 @@
+<p class="videorama-titulo">Usuario</p>
+
+<%= render "usuario.html", usuario: @usuario %>

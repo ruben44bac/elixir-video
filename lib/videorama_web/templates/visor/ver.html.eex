@@ -1,0 +1,30 @@
+<div class="row">
+    <div class="column">
+        <p class="videorama-titulo"><%= @video.titulo %> </p> 
+    </div>
+    <div class="row">
+    
+        <div class="col s8">
+            <%= content_tag :div, id: "video",
+                data: [id: @video.id, algo: algo(@video)], class: "video-detalle" do %>
+            <% end %>
+        </div>
+        <div class="col s4">
+
+            
+            <p class="video-comentario-titulo">Comentarios</p>
+            <div id="msg_container"></div>
+            <div class="video-comentario">
+                <div class="row">
+                    <div class="input-field col s12">
+                    <textarea id="textarea1" class="materialize-textarea"></textarea>
+                    <label for="textarea1">Textarea</label>
+                    </div>
+                    <button class="waves-effect waves-light btn">Enviar comentario</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

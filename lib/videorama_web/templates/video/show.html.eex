@@ -1,0 +1,23 @@
+<p class="videorama-titulo">Detalles del video</p>
+
+<ul>
+
+  <li>
+    <strong> url:</strong>
+    <%= @video. url %>
+  </li>
+
+  <li>
+    <strong>Titulo:</strong>
+    <%= @video.titulo %>
+  </li>
+
+  <li>
+    <strong>Descripcion:</strong>
+    <%= @video.descripcion %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: video_path(@conn, :edit, @video) %></span>
+<span><%= link "Back", to: video_path(@conn, :index) %></span>

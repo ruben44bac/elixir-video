@@ -1,0 +1,36 @@
+
+
+
+  <p class="videorama-titulo"><%= gettext "%{name}", name: "Videorama" %></p>
+
+
+  <%= if @usuario_concurrente do %>
+    <div class="content">
+      <div class="row">
+        <div class="col s4">
+          <%= link to: Routes.usuario_path(@conn, :index) do %>
+            <div class="tarjeta tarjeta-fondo-1">
+              <label>Usuarios</label>
+            </div>
+          <% end %>
+        </div>
+        <div class="col s4">
+          <%= link to: Routes.video_path(@conn, :index) do %>
+            <div class="tarjeta tarjeta-fondo-2">
+              <label>Videos</label>
+            </div>
+          <%end%>
+        </div>
+        <div class="col s4">
+          <%= link to: Routes.sesion_path(@conn, :new) do %>
+            <div class="tarjeta tarjeta-fondo-3">
+              <label>Acceso</label>
+            </div>
+          <%end%>
+        </div>
+      </div>
+    </div>
+  <% else %>
+    <li> <%= link "Regístrate", to: Routes.usuario_path(@conn, :new) %> </li>
+    <li> <%= link "Ingresa", to: Routes.sesion_path(@conn, :new) %> </li>
+  <% end %>

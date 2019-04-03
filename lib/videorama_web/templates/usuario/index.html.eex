@@ -1,0 +1,13 @@
+<p class="videorama-titulo">Usuarios</p>
+
+<table class="table">
+	<%= for usuario <- @usuarios do %>
+		<tr>
+			<td> <%= render "usuario.html", usuario: usuario %>  </td>
+			<td> <%= link "Ver", to: Routes.usuario_path(@conn, :show, usuario.id) %> </td>
+		</tr>
+	<% end %>
+</table>
+<div class="btn-nuevo">
+	<%= link "+", to: "/usuario/new", class: "waves-effect btn-floating btn-large waves-effect waves-light red" %>
+</div>

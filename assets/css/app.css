@@ -1,0 +1,115 @@
+/* This file is for your main application css. */
+@import url('https://fonts.googleapis.com/css?family=Merriweather+Sans');
+
+nav {
+    background: #0D47A1 !important;
+}
+.btn-nuevo{
+    position: fixed;
+    z-index: 999;
+    bottom: 5%;
+    right: 5%;
+}
+.fixed-action-btn {
+    position: relative !important;
+    right: 1 !important;
+    bottom: 1 !important;
+    width: 100% !important;
+    padding-top: 15% !important;
+}
+.videorama-titulo {
+    width: 100%;
+    color: #37474F;
+    text-align: center;
+    padding: 5%;
+    font-size: 40px;
+    font-family: 'Merriweather Sans', sans-serif;
+    -webkit-animation-name: videorama-titulo-animation; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 1s; /* Safari 4.0 - 8.0 */
+    animation-name: videorama-titulo-animation;
+    animation-duration: 1s;
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes videorama-titulo-animation {
+    from { font-size: 5px; }
+    to {font-size: 40px;}
+}
+
+/* Standard syntax */
+@keyframes videorama-titulo-animation {
+    from { font-size: 5px; }
+    to {font-size: 40px;}
+}
+
+.tarjeta {
+    padding: 155%  5%  5% 5%;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 0px 50px 0px rgba(171,171,171,1);
+    -moz-box-shadow: 0px 0px 50px 0px rgba(171,171,171,1);
+    box-shadow: 0px 0px 50px 0px rgba(171,171,171,1);
+}
+
+.tarjeta:hover label {
+    font-size: 30px;
+}
+
+.tarjeta-fondo-1 {
+    background: url(/images/test1.jpg) no-repeat center center; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.tarjeta label {
+    color: #FFFFFF;
+    transition: 1s;
+    -moz-transition: 1s;
+}
+.tarjeta-fondo-2 {
+    background: url(/images/test2.jpg) no-repeat center center; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.tarjeta-fondo-3 {
+    background: url(/images/test3.jpg) no-repeat center center; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.logo-header{
+    width: 5%;
+    margin: 2%;
+}
+
+.video-detalle {
+    width: 100%;
+    height: 500px;
+    margin-top: -5%;
+}
+.col .video-detalle {
+    padding: 10%;
+} 
+
+.video-comentario {
+    width: 100%;
+    padding: 5% 10% 5% 10%;
+    border: solid 1px #90A4AE;
+    border-radius: 10px;
+}
+.video-comentario label {
+    font-size: 20px;
+    color: #37474F;
+}
+.video-comentario-titulo{
+    font-size: 30px;
+
+}
+.titulo-video-lista {
+    font-size: 20px;
+}

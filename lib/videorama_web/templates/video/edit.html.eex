@@ -1,0 +1,5 @@
+<p class="videorama-titulo">Edita el video</p>
+
+<%= render "form.html", Map.put(assigns, :action, video_path(@conn, :update, @video)) %>
+
+<span><%= link "Back", to: video_path(@conn, :index) %></span>

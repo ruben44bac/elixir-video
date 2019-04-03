@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Videorama</title>
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css" rel="stylesheet"/>
+  </head>
+
+  <body>
+    
+       <nav>
+        <div class="nav-wrapper col s12">
+        <%= link to: Routes.page_path(@conn, :index) do %>
+          <img class="logo-header" src="/images/logo.png">
+        <%end%>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <%= if @usuario_concurrente do %>
+            <li><%= link @usuario_concurrente.nombre_usuario, to: Routes.usuario_path(@conn, :show, @usuario_concurrente.id), method: "get" %> </li>
+            <li><%= link "Salir", to: Routes.sesion_path(@conn, :delete, @usuario_concurrente), method: "delete" %></li>
+          <% else %>
+            <li> <%= link "Regístrate", to: Routes.usuario_path(@conn, :new) %> </li>
+            <li> <%= link "Ingresa", to: Routes.sesion_path(@conn, :new) %> </li>
+          <% end %>
+          </ul>
+        </div>
+      </nav>
+    <div class="container">
+      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+
+      <main role="main">
+        <%= render @view_module, @view_template, assigns %>
+      </main>
+
+    </div> <!-- /container -->
+    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+
+  </body>
+</html>

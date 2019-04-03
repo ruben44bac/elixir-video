@@ -1,0 +1,14 @@
+<p class="videorama-titulo">Acceso</p>
+
+<%= form_for @conn, Routes.sesion_path(@conn, :create), [as: :sesion], fn f ->  %>
+    <div class="form-group">
+        <div class="form-group">
+            <%= text_input f, :correo, placeholder: "Correo", class: "form-control" %>
+        </div>
+        <div class="form-group"> 
+            <%= text_input f, :contraseña, placeholder: "Contraseña", class: "form-control" %>  
+        </div>
+        <%= submit "Ingresar", class: "waves-effect waves-light btn-large" %>
+    <div>
+<% end %>
+

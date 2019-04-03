@@ -1,0 +1,35 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <div class="input-field">
+    <%= label f, :url, class: "control-label" %>
+    <%= text_input f, :url, class: "form-control" %>
+    <%= error_tag f, :url %>
+  </div>
+
+  <div class="input-field">
+    <%= label f, :titulo, class: "control-label" %>
+    <%= text_input f, :titulo, class: "form-control" %>
+    <%= error_tag f, :titulo %>
+  </div>
+
+  
+
+  <div class="input-field">
+    <%= label f, :descripcion, class: "control-label" %>
+    <%= text_input f, :descripcion, class: "form-control" %>
+    <%= error_tag f, :descripcion %>
+  </div>
+
+  <div class="input-field">
+    <%= select f, :categoria_id, categoria_seleccionada(@categoria), prompt: "Selecciona una categoria", class: "browser-default"%>
+  </div>
+  <br>
+  <div class="form-group">
+    <%= submit "Enviar", class: "btn btn-primary" %>
+  </div>
+<% end %>

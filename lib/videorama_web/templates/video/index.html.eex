@@ -1,0 +1,61 @@
+<p class="videorama-titulo">Videos</p>
+
+<table class="table" style="position: absolute; width: 70%;">
+  <thead>
+    <tr>
+      <th> url</th>
+      <th>Titulo</th>
+      <th>Descripcion</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for video <- @video do %>
+        <tr>
+          <td width="20%"> <img width="100%" src="https://i.ytimg.com/vi/<%=  String.slice(video. url, 32..60 ) %>/hqdefault.jpg">  </td>
+          <td width="40%"> 
+            <span class="titulo-video-lista"> <%= video.titulo %> </span><br>
+            <%= video.descripcion %>
+          </td>
+
+          <td  width="40%" class="text-center" >
+            <div class="fixed-action-btn toolbar">
+              <a class="btn-floating btn-large red" style="margin-top:-2em;">
+                <i class="large material-icons">more_vert</i>
+              </a>
+              <ul>
+                <li> 
+                  <%= link to: video_path(@conn, :show, video), class: "btn-floating " do %>
+                    <i class="material-icons">info</i>
+                  <%end%>
+                </li>
+                <li>
+                  <%= link to: video_path(@conn, :edit, video), class: "btn-floating " do %>
+                    <i class="material-icons">create</i>
+                  <%end%>
+                </li>
+                <li>
+                  <%= link to: video_path(@conn, :delete, video), method: :delete, data: [confirm: "Are you sure?"], class: "btn-floating red" do %>
+                    <i class="material-icons">delete</i>
+                  <%end%>
+                </li>
+                <li> 
+                  <%= link to: visor_path(@conn, :ver, "#{video.id}-#{video.slug}"), class: "btn-floating " do %>
+                    <i class="material-icons">visibility</i>
+                  <%end%>
+                </li>
+              </ul>
+            </div>
+          </td>
+        </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<div class="btn-nuevo">
+	<%=link to: video_path(@conn, :new), class: "waves-effect btn-floating btn-large waves-light red" do %>
+    <i class="material-icons">add</i>
+  <% end %>
+</div>
