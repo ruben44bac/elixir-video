@@ -113,6 +113,66 @@ nav {
 .titulo-video-lista {
     font-size: 20px;
 }
+#msg-container {
+    padding: 5%;
+    background: #ECEFF1;
+    border-radius: 10px;
+    height: 300px;
+    overflow-y: scroll;
+}
+
+.mensaje-detalle {
+    background: #FFFFFF;
+    border-radius: 5px;
+    padding: 10%;
+    margin-bottom: 5%;
+    width: 80%;
+    float: left;
+    -webkit-animation-name: videorama-comentario2-animation; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 1s; /* Safari 4.0 - 8.0 */
+    animation-name: videorama-comentario2-animation;
+    animation-duration: 1s;
+}
+
+.mensaje-detalle-propio {
+    background: #1E88E5;
+    border-radius: 5px;
+    padding: 10%;
+    margin-bottom: 5%;
+    text-decoration: none;
+    width: 80%;
+    float: right;
+    -webkit-animation-name: videorama-comentario1-animation; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 1s; /* Safari 4.0 - 8.0 */
+    animation-name: videorama-comentario1-animation;
+    animation-duration: 1s;
+}
+
+.mensaje-detalle-propio a {
+    color: #FFFFFF
+}
+
+@-webkit-keyframes videorama-comentario1-animation {
+    from { margin-right: -30%; }
+    to { margin-right: 0%; }
+}
+
+/* Standard syntax */
+@keyframes videorama-comentario1-animation {
+    from { margin-right: -30%; }
+    to { margin-right: 0%; }
+}
+
+@-webkit-keyframes videorama-comentario2-animation {
+    from { margin-left: -30%; }
+    to { margin-left: 0%; }
+}
+
+/* Standard syntax */
+@keyframes videorama-comentario2-animation {
+    from { margin-left: -30%; }
+    to { margin-left: 0%; }
+}
 /* Includes Bootstrap as well as some default style for the starter
  * application. This can be safely deleted to start fresh.
  */

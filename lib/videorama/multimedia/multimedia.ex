@@ -9,6 +9,7 @@ defmodule Videorama.Multimedia do
   alias Videorama.Multimedia.Video
   alias Videorama.Cuentas.Usuario
   alias Videorama.Multimedia.Categoria
+  alias Videorama.Multimedia.Comentario
 
   @doc """
   Returns the list of video.
@@ -145,6 +146,23 @@ defmodule Videorama.Multimedia do
     Categoria
       |> Categoria.orden_alfabetico()
       |> Repo.all()
+  end
+
+  def comentario_video(%Usuario{} = usuario, video_id, atributos) do
+    %Comentario{video_id: video_id}
+      |> Comentario.changeset(atributos)
+      |> put_usuario(usuario)
+      |> Repo.insert()
+  end
+
+  def lista_comentarios(%Video{} = video, since_id \\ 0 ) do
+      Repo.all(
+        from a in Ecto.assoc(video, :comentarios),
+          where: a.id > ^since_id,
+          order_by: [asc: a.at, asc: a.id],
+          limit: 500,
+          preload: [:usuario]
+      )
   end
 
 end

@@ -9,6 +9,7 @@ defmodule Videorama.Multimedia.Video do
     field :slug, :string
     belongs_to :usuario, Videorama.Cuentas.Usuario
     belongs_to :categoria, Videorama.Multimedia.Categoria
+    has_many :comentarios, Videorama.Multimedia.Comentario
 
     timestamps()
   end

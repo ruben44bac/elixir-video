@@ -1,6 +1,26 @@
 defmodule VideoramaWeb.UserSocket do
   use Phoenix.Socket
 
+
+  @max_age 2 * 7 * 24 * 60 * 60
+  def connect(%{"token" => token}, socket) do
+    IO.puts(" laralala laralala laralala laralala laralala laralala laralala")
+    IO.inspect(token)
+    case Phoenix.Token.verify(
+      socket, 
+      "usuario socket", 
+      token, 
+      max_age: @max_age
+    ) do
+        {:ok, usuario_id} -> {:ok, assign(socket, :usuario_id, usuario_id)}
+        {:error, _reason} -> :error
+    end
+  end
+
+  def connect(_params, _socket), do: :error
+  
+  def id(socket), do: "usuario_socket:#{socket.assigns.usuario_id}"
+
   ## Channels
   channel "videos:*", VideoramaWeb.VideoChannel
 

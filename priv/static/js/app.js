@@ -1643,6 +1643,7 @@ require.register("phoenix_html/priv/static/phoenix_html.js", function(exports, r
 
       if (!element.dispatchEvent(phoenixLinkEvent)) {
         e.preventDefault();
+        e.stopImmediatePropagation();
         return false;
       }
 
@@ -1790,6 +1791,8 @@ var _algo2 = _interopRequireDefault(_algo);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 var Video = {
     init: function init(socket, element) {
         var _this = this;
@@ -1810,12 +1813,12 @@ var Video = {
         var msgContainer = document.getElementById("msg-container");
         var msgInput = document.getElementById("msg-input");
         var postButton = document.getElementById("msg-submit");
-        var vidChannel = socket.channel("videos:" + videoId);
+        var lastSeenId = 0;
+        var vidChannel = socket.channel("videos:" + videoId, function () {
+            return { last_seen_id: lastSeenId };
+        });
 
         postButton.addEventListener("click", function (e) {
-            console.log("oiqjdwqijeoiwqjeowqejiwqjeoiqwoeiwqjeoiwqejioqw");
-            console.log(msgInput);
-            console.log("oiqjdwqijeoiwqjeowqejiwqjeoiqwoeiwqjeoiwqejioqw");
             var payload = { body: msgInput.value, at: _algo2.default.getCurrentTime() };
             vidChannel.push("new_annotation", payload).receive("error", function (e) {
                 return console.log(e);
@@ -1823,12 +1826,33 @@ var Video = {
             msgInput.value = "";
         });
 
+        msgContainer.addEventListener("click", function (e) {
+            e.preventDefault();
+            var segundo = e.target.getAttribute("data-seek") || e.target.parentNode.getAttribute("data-seek");
+
+            if (!segundo) {
+                return;
+            }
+            _algo2.default.seekTo(segundo);
+        });
+
         vidChannel.on("new_annotation", function (resp) {
-            _this2.renderAnnotation(msgContainer, resp);
+            lastSeenId = resp.id;
+            _this2.muestraComentario(msgContainer, resp);
         });
 
         vidChannel.join().receive("ok", function (resp) {
-            return console.log("ME HE UNIDO AL SOCKET BIEN FACIL", resp);
+            /*resp.comentarios.forEach(
+                com => {
+                    this.muestraComentario(msgContainer, com)
+                })*/
+            var ids = resp.comentarios.map(function (com) {
+                return com.id;
+            });
+            if (ids.length > 0) {
+                lastSeenId = Math.max.apply(Math, _toConsumableArray(ids));
+            }
+            _this2.ordenarMensaje(msgContainer, resp.comentarios);
         }).receive("error"), function (resp) {
             return console.log("ERROR FATAL", resp);
         };
@@ -1838,16 +1862,43 @@ var Video = {
         div.appendChild(document.createTextNode(str));
         return div.innerHTML;
     },
-    renderAnnotation: function renderAnnotation(msgContainer, _ref) {
+    muestraComentario: function muestraComentario(msgContainer, _ref) {
         var usuario = _ref.usuario,
             body = _ref.body,
             at = _ref.at;
 
         var template = document.createElement("div");
-
-        template.innerHTML = "\n            <a href=\"# data-seek=\"" + this.esc(at) + "\">\n                <b>" + this.esc(usuario.nombre_usuario) + "</b>: " + this.esc(body) + "\n            </a>\n        ";
+        template.className = window.name == usuario.nombre_usuario ? "mensaje-detalle-propio" : "mensaje-detalle";
+        template.innerHTML = "\n            <a href=\"# data-seek=\"" + this.esc(at) + "\">\n                [" + this.formatoTiempo(at) + "]\n                <b>" + this.esc(usuario.nombre_usuario) + "</b>: " + this.esc(body) + "\n            </a>\n        ";
         msgContainer.appendChild(template);
         msgContainer.scrollTop = msgContainer.scrollHeight;
+    },
+    ordenarMensaje: function ordenarMensaje(msgContainer, comentarios) {
+        var _this3 = this;
+
+        clearTimeout(this.ordenarTiempo);
+        this.ordenarTiempo = setTimeout(function () {
+            var ctime = _algo2.default.getCurrentTime();
+            var remaining = _this3.mostrarTiempo(comentarios, ctime, msgContainer);
+            _this3.ordenarMensaje(msgContainer, remaining);
+        }, 1000);
+    },
+    mostrarTiempo: function mostrarTiempo(comentarios, segundos, msgContainer) {
+        var _this4 = this;
+
+        return comentarios.filter(function (com) {
+            if (com.at > segundos) {
+                return true;
+            } else {
+                _this4.muestraComentario(msgContainer, com);
+                return false;
+            }
+        });
+    },
+    formatoTiempo: function formatoTiempo(at) {
+        var fecha = new Date(null);
+        fecha.setSeconds(at / 1000);
+        return fecha.toISOString().substr(14, 5);
     }
 };
 exports.default = Video;

@@ -24,6 +24,7 @@
         <%end%>
           <ul id="nav-mobile" class="right hide-on-med-and-down">
           <%= if @usuario_concurrente do %>
+            <%# <li><%= assigns[:usuario_token]  </li> %>
             <li><%= link @usuario_concurrente.nombre_usuario, to: Routes.usuario_path(@conn, :show, @usuario_concurrente.id), method: "get" %> </li>
             <li><%= link "Salir", to: Routes.sesion_path(@conn, :delete, @usuario_concurrente), method: "delete" %></li>
           <% else %>
@@ -42,7 +43,13 @@
       </main>
 
     </div> <!-- /container -->
-    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
-
+    <script>
+      window.userToken = "<%= assigns[:usuario_token] %>"
+      window.name = "<%= @usuario_concurrente.nombre_usuario %>"
+      console.log(window);
+    </script>
+    <script type="text/javascript"
+src="<%= Routes.static_url(@conn, "/js/app.js") %>"></script>
+  
   </body>
 </html>

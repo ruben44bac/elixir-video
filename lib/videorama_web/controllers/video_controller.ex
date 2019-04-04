@@ -67,9 +67,6 @@ defmodule VideoramaWeb.VideoController do
   end
   plug :carga_categorias when action in [:new, :create, :edit, :update]
   defp carga_categorias(conn, _) do
-    tester = Multimedia.lista_alfabetica_categorias()
-    IO.puts("////////////////////////////////////////////////")
-    IO.inspect(tester)
     assign(conn, :categoria, Multimedia.lista_alfabetica_categorias())
   end
 end

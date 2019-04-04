@@ -8,13 +8,22 @@ defmodule VideoramaWeb.Autentificacion do
 	
 	def call(conn, _opciones) do
 		usuario_id = get_session(conn, :usuario_id)
-		usuario = usuario_id && Cuentas.get_usuario(usuario_id)
-		assign(conn, :usuario_concurrente, usuario)
+
+		cond do
+			usuario = conn.assigns[:usuario_concurrente] ->
+				put_usuario_concurrente(conn, usuario)
+
+			usuario = usuario_id && Cuentas.get_usuario(usuario_id) -> 
+				put_usuario_concurrente(conn, usuario)
+
+		  	true -> assign(conn, :usuario_concurrente, nil)
+			
+		end
 	end
 
 	def acceso(conn, usuario) do
 		conn
-			|> assign(:usuario_concurrente, usuario)
+			|> put_usuario_concurrente(usuario)
 			|> put_session(:usuario_id, usuario.id)
 			|> configure_session(renew: true)
 	end
@@ -42,5 +51,13 @@ defmodule VideoramaWeb.Autentificacion do
 		end
 	end
 
+	defp put_usuario_concurrente(conn, usuario) do
+		
+		token = Phoenix.Token.sign(conn, "usuario socket", usuario.id)
+		
+		conn
+			|> assign(:usuario_concurrente, usuario)
+			|> assign(:usuario_token, token)
+	end
 
 end
